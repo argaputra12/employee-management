@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('address');
             $table->date('date_of_birth');
             $table->enum('role', ['admin', 'user']);
-            $table->decimal('salary', 8, 2);
+            $table->integer('salary');
+            $table->string('image', 100)->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

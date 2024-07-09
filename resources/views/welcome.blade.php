@@ -94,12 +94,13 @@
                     <th class="px-6 py-3">Role</th>
                     <th class="px-6 py-3">Salary</th>
                     <th class="px-6 py-3">Email</th>
+                    <th class="px-6 py-3">Image</th>
                   </tr>
                 </thead>
                 <tbody>
                   @foreach ($users as $user)
                     <tr class="border-b bg-white dark:border-gray-700 dark:bg-gray-800">
-                      <th scope="row" class="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white">
+                      <th scope="row" class="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white overflow-x-auto">
                         {{ $user->name }}
                       </th>
                       <td class="px-6 py-4">{{ $user->gender }}</td>
@@ -109,6 +110,7 @@
                       <td class="px-6 py-4">{{ $user->role }}</td>
                       <td class="px-6 py-4">{{ $user->salary }}</td>
                       <td class="px-6 py-4">{{ $user->email }}</td>
+                      <td class="px-6 py-4"><a href="{{ $user->image }}" target="_blank">Click here to see image</a></td>
                     </tr>
                   @endforeach
                 </tbody>

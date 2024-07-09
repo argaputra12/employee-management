@@ -49,8 +49,32 @@ class UserController extends Controller
                 ->withInput();
         }
 
-        // Store the record...
-        User::create($request->all());
+        // Upload image...
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            // $image_name = $image->getClientOriginalName();
+            $image_name = $image->storeAs('images', $request->name . '.' . $image->getClientOriginalExtension(), 'public');
+            $destinationPath = public_path('/images');
+            $image->move($destinationPath, $image_name);
+
+            // Store the record from validated data...
+            User::create([
+                'name' => $validator["name"],
+                'gender' => $validator["gender"],
+                'phone' => $validator["phone"],
+                'address' => $validator["address"],
+                'date_of_birth' => $validator["date_of_birth"],
+                'role' => $validator["role"],
+                'salary' => $validator["salary"],
+                'email' => $validator["email"],
+                'password' => bcrypt($validator["password"]),
+                'image' => $image_name,
+            ]);
+        }
+        else {
+            User::create($request->all());
+        }
+
 
         return redirect()->route('home');
     }
@@ -100,11 +124,8 @@ class UserController extends Controller
 
         if ($users->isEmpty()) {
             return redirect()->back()->with('error', 'No record found!');
-        }
-
-        else {
+        } else {
             return response()->json($users, 200);
         }
     }
-
 }
