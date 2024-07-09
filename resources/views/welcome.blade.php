@@ -41,13 +41,48 @@
             </div>
 
             <div class="relative flex w-full flex-col gap-3 overflow-x-auto">
-              <input
-                type="text"
-                id="search"
-                name="search"
-                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                placeholder="Search"
-              />
+              <div class="flex w-full flex-row-reverse justify-between gap-6">
+                <input
+                  type="text"
+                  id="search"
+                  name="search"
+                  class="block w-1/3 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                  placeholder="Search"
+                />
+
+                <div class="justify-sart flex items-center">
+                  <form method="GET" action="{{ route('users.index') }}" class="flex justify-evenly gap-6">
+                    @csrf
+                    <label for="filter" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
+                      Sort by
+                    </label>
+                    <select
+                      id="sort_by"
+                      name="sort_by"
+                      class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                    >
+                      <option value="name">Name</option>
+                      <option value="phone">Phone</option>
+                      <option value="address">Address</option>
+                      <option value="date_of_birth">Date of birth</option>
+                      <option value="salary">Salary</option>
+                    </select>
+                    <select
+                      id="order"
+                      class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                    >
+                      <option value="asc">Asc</option>
+                      <option value="desc">Desc</option>
+                    </select>
+                    <button
+                      type="submit"
+                      class="rounded-md bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    >
+                      Filter
+                    </button>
+                  </form>
+                </div>
+              </div>
               <table class="w-full text-left text-sm text-gray-500 dark:text-gray-400 rtl:text-right">
                 <thead class="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
                   <tr>
@@ -116,7 +151,7 @@
                       <td class="px-6 py-4">${data.salary}</td>
                       <td class="px-6 py-4">${data.email}</td>
                     </tr>`);
-						$('#pagination').html('');
+            $('#pagination').html('');
           });
         },
       });

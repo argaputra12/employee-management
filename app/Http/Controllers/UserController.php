@@ -10,11 +10,12 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-    }
+        $users = User::orderBy($request->sort_by ?? 'created_at', $request->sort_order ?? 'desc')->paginate(10);
 
+        return view('welcome', compact('users'));
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -105,4 +106,5 @@ class UserController extends Controller
             return response()->json($users, 200);
         }
     }
+
 }
